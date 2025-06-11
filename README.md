@@ -4,7 +4,7 @@ Sistema de gerenciamento de pacientes e agendamentos, feito com ASP.NET Core MVC
 ** Projeto pessoal **
 
 ## Funcionalidades
-✅ Cadastro de pacientes  
-✅ Agendamentos com data/hora  
-✅ Filtros e pesquisa  
-🚧 Em desenvolvimento: visualização por calendário
+🚧 Em desenvolvimento: Cadastro de pacientes  
+❌ Agendamentos com data/hora  
+❌ Filtros e pesquisa  
+❌ visualização por calendário
