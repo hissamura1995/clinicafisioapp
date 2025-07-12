@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("clinicafisioapp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c8ff824b7cbd304bfcd6f1bbef7d4ca09ed4097")]
 [assembly: System.Reflection.AssemblyProductAttribute("clinicafisioapp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("clinicafisioapp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
