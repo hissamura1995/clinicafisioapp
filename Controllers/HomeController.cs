@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using clinicafisioapp.Models;
+using Microsoft.AspNetCore.Authorization;
+using clinicafisioapp.Filters;
 
 namespace clinicafisioapp.Controllers;
 
@@ -13,6 +15,8 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    [Authorize]
+    [RequiredPatientProfile]
     public IActionResult Index()
     {
         return View();

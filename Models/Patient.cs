@@ -16,20 +16,24 @@ namespace clinicafisioapp.Models
         [StringLength(14)]
         public string CPF { get; set; }
 
-        [DisplayName("Nome")]
+        [DisplayName("Nome Completo")]
         [Required(ErrorMessage = "Nome é um campo obrigatório")]
         public string Name { get; set; }
 
         [DisplayName("Data de nascimento")]
         [Required(ErrorMessage = "Data de nascimento é um campo obrigatório")]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         [NotMapped]
-        public int Age => DateTime.Now.Year - BirthDate.Year;
+        public int? Age => BirthDate.HasValue ? DateTime.Now.Year - BirthDate.Value.Year : null;
+
+        [DisplayName("Gênero")]
+        [Required(ErrorMessage = "Gênero é uma seleção obrigatória")]
+        public string Gender { get; set; }
 
         [DisplayName("DDD")]
         [Required(ErrorMessage = "DDD é um campo obrigatório")]
-        public int DDD { get; set; }
+        public string DDD { get; set; }
 
         [DisplayName("Telefone")]
         [Required(ErrorMessage = "Telefone é um campo obrigatório")]
@@ -39,20 +43,7 @@ namespace clinicafisioapp.Models
         [Required(ErrorMessage = "Email é um campo obrigatório")]
         public string Email { get; set; }
 
-        [DisplayName("Estado")]
-        [Required(ErrorMessage = "Estado é um campo obrigatório")]
-        public string State { get; set; }
-
-        [DisplayName("Cidade")]
-        [Required(ErrorMessage = "Cidade é um campo obrigatório")]
-        public string City { get; set; }
-
-        [DisplayName("Endereço")]
-        [Required(ErrorMessage = "Endereço é um campo obrigatório")]
-        public string Street { get; set; }
-
-        [DisplayName("Complemento")]
-        public string? Complement { get; set; }
-
+        [Required]
+        public Address Address { get; set; }
     }
 }

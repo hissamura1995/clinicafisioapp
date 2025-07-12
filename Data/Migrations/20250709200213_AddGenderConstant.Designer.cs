@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using clinicafisioapp.Data;
 
@@ -10,9 +11,11 @@ using clinicafisioapp.Data;
 namespace clinicafisioapp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250709200213_AddGenderConstant")]
+    partial class AddGenderConstant
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
@@ -257,6 +260,13 @@ namespace clinicafisioapp.Data.Migrations
                         .HasMaxLength(14)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Complement")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("DDD")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -274,6 +284,14 @@ namespace clinicafisioapp.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Street")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -351,44 +369,6 @@ namespace clinicafisioapp.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("clinicafisioapp.Models.Patient", b =>
-                {
-                    b.OwnsOne("clinicafisioapp.Models.Address", "Address", b1 =>
-                        {
-                            b1.Property<int>("PatientId")
-                                .HasColumnType("INTEGER");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("Complement")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("State")
-                                .IsRequired()
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("ZipCode")
-                                .IsRequired()
-                                .HasColumnType("TEXT");
-
-                            b1.HasKey("PatientId");
-
-                            b1.ToTable("Patients");
-
-                            b1.WithOwner()
-                                .HasForeignKey("PatientId");
-                        });
-
-                    b.Navigation("Address")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
