@@ -1,0 +1,135 @@
+﻿@model clinicafisioapp.Models.Patient
+
+@using clinicafisioapp.Enums;
+
+@{
+	ViewData["Title"] = "Complete Profile";
+}
+
+<h2>Complete seu perfil</h2>
+
+<form asp-action="CompleteProfile" method="post">
+	<div class="row">
+		<!-- Left side -->
+		<div class="col-md-6">
+			<div class="form-group">
+				<div>
+					<label asp-for="Name"></label>
+					<input asp-for="Name" class="form-control" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div>
+					<label asp-for="CPF"></label>
+					<input asp-for="CPF" class="form-control only-numbers" maxlength="11" />
+					<span asp-validation-for="CPF" class="text-danger"></span>
+				</div>
+				<label>Telefone</label>
+				<div class="d-flex">
+					<input asp-for="DDD" class="form-control me-2" style="max-width: 80px;" placeholder="DDD" />
+					<input asp-for="Phone" class="form-control" placeholder="Telefone" />
+				</div>
+				<div>
+					<label asp-for="Address.ZipCode"></label>
+					<input asp-for="Address.ZipCode" id="ZipCode" class="form-control only-numbers" maxlength="8" pattern="^\d+$" />
+					<span asp-validation-for="Address.ZipCode" class="text-danger"></span>
+				</div>
+				<div>
+					<label asp-for="Address.City"></label>
+					<input asp-for="Address.City" id="City" class="form-control" />
+					<span asp-validation-for="Address.City" class="text-danger"></span>
+				</div>
+				<div>
+					<label asp-for="Address.Complement"></label>
+					<input asp-for="Address.Complement" id="Complement" class="form-control" />
+					<span asp-validation-for="Address.Complement" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Right side -->
+		<div class="col-md-6">
+			<div class="form-group">
+				<div>
+					<label asp-for="BirthDate"></label>
+					<input asp-for="BirthDate" class="form-control" type="date" />
+					<span asp-validation-for="BirthDate" class="text-danger"></span>
+				</div>
+				<div>
+					<label asp-for="Gender"></label>
+					<select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<GenderTypes>
+						()">
+						<option value="">Selecione</option>
+					</select>
+					<span asp-validation-for="Gender" class="text-danger"></span>
+				</div>
+				<div>
+					<label asp-for="Email"></label>
+					<input asp-for="Email" class="form-control" />
+					<span asp-validation-for="Email" class="text-danger"></span>
+				</div>
+				<div>
+					<label asp-for="Address.State"></label>
+					<select asp-for="Address.State" id="State" class="form-control" asp-items="ViewBag.States">
+						<option value="">Selecione</option>
+					</select>
+					<span asp-validation-for="Address.State" class="text-danger"></span>
+				</div>
+				<div>
+					<label asp-for="Address.Street"></label>
+					<input asp-for="Address.Street" id="Street" class="form-control" />
+					<span asp-validation-for="Address.Street" class="text-danger"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br />
+	<button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+@section Scripts {
+	<script>
+		  // AutoComplete ZipCode //
+		  document.addEventListener("DOMContentLoaded", function() {
+
+		  const cepInput = document.getElementById("ZipCode");
+
+		  cepInput.addEventListener("blur", function() {
+			const cep = cepInput.value.trim();
+
+			if(!cep) return;
+
+			if(cep.length !== 8){
+				alert("CEP inválido.");
+			}
+
+			if (cep.length === 8) {
+			  const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+			  fetch(url)
+				.then(response => {
+				  if (!response.ok) {
+					throw new Error("Erro ao buscar o CEP");
+				  }
+				  return response.json();
+				})
+				.then(data => {
+				  if (!data.erro) {
+					document.getElementById("State").value = data.uf;
+					document.getElementById("City").value = data.localidade;
+					document.getElementById("Street").value = data.logradouro;
+					document.getElementById("Complement").value = data.complemento;
+				  } else {
+					alert("CEP não encontrado");
+				  }
+				})
+				.catch(error => {
+				  console.error("Erro na requisição do CEP:", error);
+				});
+			}
+			else{
+
+			}
+		  });
+		});
+	</script>
+}
